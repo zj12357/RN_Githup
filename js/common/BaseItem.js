@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableOpacity} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {PropTypes} from 'prop-types';
 
@@ -16,6 +16,7 @@ export default class BaseItem extends Component {
             isFavorite: this.props.projectModel.isFavorite,
         }
     }
+
     /**
      * 牢记：https://github.com/reactjs/rfcs/blob/master/text/0006-static-lifecycle-methods.md
      * componentWillReceiveProps在新版React中不能再用了
@@ -32,16 +33,25 @@ export default class BaseItem extends Component {
         }
         return null;
     }
-    setFavoriteState(isFavorite){
+
+    setFavoriteState(isFavorite) {
         this.props.projectModel.isFavorite = isFavorite;
         this.setState({
             isFavorite: isFavorite,
         })
     }
-    onPressFavorite(){
+
+    onItemClick() {
+        this.props.onSelect(isFavorite => {
+            this.setFavoriteState(isFavorite);
+        });
+    }
+
+    onPressFavorite() {
         this.setFavoriteState(!this.state.isFavorite);
         this.props.onFavorite(this.props.projectModel.item, !this.state.isFavorite)
     }
+
     _favoriteIcon() {
         return <TouchableOpacity
             style={{padding: 6}}
