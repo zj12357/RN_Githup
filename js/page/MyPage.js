@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {onThemeChange} from '../action/theme'
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import NavigationBar from '../common/NavigationBar';
+import NavigationUtil from "../navigator/NavigationUtil";
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import {MORE_MENU} from "../common/MORE_MENU";
@@ -42,7 +43,17 @@ class MyPage extends Component {
     }
 
     onClick(menu) {
-
+        let RouteName, params = {};
+        switch (menu) {
+            case MORE_MENU.Tutorial:
+                RouteName = 'WebViewPage';
+                params.title = '百度';
+                params.url = 'https://www.baidu.com';
+                break
+        }
+        if (RouteName) {
+            NavigationUtil.goPage(params, RouteName);
+        }
     }
 
     getItem(menu) {
@@ -151,7 +162,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         flexDirection: 'row'
     },
-    groupTitle:{
+    groupTitle: {
         marginLeft: 10,
         marginTop: 10,
         marginBottom: 5,
