@@ -8,6 +8,7 @@ import DataStoreDemoPage from '../page/DataStoreDemoPage';
 import DetailPage from '../page/DetailPage';
 import WebViewPage from '../page/WebViewPage';
 import AboutPage from '../page/about/AboutPage';
+import AboutMePage from '../page/about/AboutMePage';
 import {connect} from 'react-redux';
 import {createReactNavigationReduxMiddleware, reduxifyNavigator} from 'react-navigation-redux-helpers';
 
@@ -42,6 +43,12 @@ const MainNavigator = createStackNavigator({
     },
     AboutPage: {
         screen: AboutPage,
+        navigationOptions: {
+            header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
+        }
+    },
+    AboutMePage: {
+        screen: AboutMePage,
         navigationOptions: {
             header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
         }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View,Linking} from 'react-native';
 import NavigationUtil from "../../navigator/NavigationUtil";
 import {MORE_MENU} from "../../common/MORE_MENU";
 import ViewUtil from "../../util/ViewUtil";
@@ -33,6 +33,22 @@ export default class AboutPage extends Component {
                 params.title = 'Web';
                 params.url = 'https://www.baidu.com';
                 break
+            case MORE_MENU.About_Author:
+                RouteName = 'AboutMePage';
+                break;
+            case MORE_MENU.Feedback:
+                const url = 'mailto://crazycodeboy@gmail.com';
+                Linking.canOpenURL(url)
+                    .then(support => {
+                        if (!support) {
+                            console.log('Can\'t handle url: ' + url);
+                        } else {
+                            Linking.openURL(url);
+                        }
+                    }).catch(e => {
+                    console.error('An error occurred', e);
+                });
+                break;
         }
         if (RouteName) {
             NavigationUtil.goPage(params, RouteName);
