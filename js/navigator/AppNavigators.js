@@ -8,6 +8,7 @@ import DataStoreDemoPage from '../page/DataStoreDemoPage';
 import DetailPage from '../page/DetailPage';
 import WebViewPage from '../page/WebViewPage';
 import CustomKeyPage from '../page/CustomKeyPage';
+import SortKeyPage from '../page/SortKeyPage';
 import AboutPage from '../page/about/AboutPage';
 import AboutMePage from '../page/about/AboutMePage';
 import {connect} from 'react-redux';
@@ -56,6 +57,12 @@ const MainNavigator = createStackNavigator({
     },
     CustomKeyPage: {
         screen: CustomKeyPage,
+        navigationOptions: {
+            header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
+        }
+    },
+    SortKeyPage: {
+        screen: SortKeyPage,
         navigationOptions: {
             header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
         }
