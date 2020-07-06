@@ -67,7 +67,8 @@ class PopularPage extends Component {
                     },
                     indicatorStyle: styles.indicatorStyle,//标签指示器的样式
                     labelStyle: styles.labelStyle,//文字的样式
-                }
+                },
+                lazy:true
             }
         )) : null;
         return <View style={{flex: 1, marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0}}>

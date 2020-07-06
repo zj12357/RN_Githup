@@ -112,7 +112,8 @@ class TrendingPage extends Component {
                         },
                         indicatorStyle: styles.indicatorStyle,//标签指示器的样式
                         labelStyle: styles.labelStyle,//文字的样式
-                    }
+                    },
+                    lazy:true
                 }
             ));
         }
