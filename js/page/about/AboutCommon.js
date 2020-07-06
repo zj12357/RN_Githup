@@ -6,7 +6,7 @@ import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import GlobalStyles from '../../res/styles/GlobalStyles'
 import ViewUtil from "../../util/ViewUtil";
 
-const THEME_COLOR = '#678';
+
 export const FLAG_ABOUT = {flag_about: 'about', flag_about_me: 'about_me'};
 export default class AboutCommon {
     constructor(props, updateState) {
@@ -96,10 +96,11 @@ export default class AboutCommon {
     }
 
     render(contentView, params) {
+        const {theme}=this.props;
         const renderConfig = this.getParallaxRenderConfig(params);
         return (
             <ParallaxScrollView
-                backgroundColor={THEME_COLOR}
+                backgroundColor={theme.themeColor}
                 contentBackgroundColor={GlobalStyles.backgroundColor}
                 parallaxHeaderHeight={PARALLAX_HEADER_HEIGHT}
                 stickyHeaderHeight={STICKY_HEADER_HEIGHT}
@@ -129,14 +130,13 @@ const styles = StyleSheet.create({
     },
     stickySection: {
         height: STICKY_HEADER_HEIGHT,
-        minWidth: 300,
-        justifyContent: 'center'
+        width: 300,
+        justifyContent: 'flex-end'
     },
     stickySectionText: {
         color: 'white',
         fontSize: 20,
-        margin: 10,
-        textAlign: 'center'
+        margin: 10
     },
     fixedSection: {
         position: 'absolute',

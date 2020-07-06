@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {View,Linking} from 'react-native';
+import {View, Linking} from 'react-native';
 import NavigationUtil from "../../navigator/NavigationUtil";
 import {MORE_MENU} from "../../common/MORE_MENU";
 import ViewUtil from "../../util/ViewUtil";
 import AboutCommon, {FLAG_ABOUT} from "./AboutCommon";
 import config from '../../res/data/config'
 import GlobalStyles from "../../res/styles/GlobalStyles";
-
-const THEME_COLOR = '#678';
 
 
 export default class AboutPage extends Component {
@@ -17,7 +15,7 @@ export default class AboutPage extends Component {
         this.aboutCommon = new AboutCommon({
                 ...this.params,
                 navigation: this.props.navigation,
-                flagAbout: FLAG_ABOUT.flag_about_me,
+                flagAbout: FLAG_ABOUT.flag_about,
             }, data => this.setState({...data})
         );
         this.state = {
@@ -26,13 +24,14 @@ export default class AboutPage extends Component {
     }
 
     onClick(menu) {
-        let RouteName, params = {};
+        const {theme} = this.params;
+        let RoutseName, params = {theme};
         switch (menu) {
             case MORE_MENU.Tutorial:
                 RouteName = 'WebViewPage';
-                params.title = 'Web';
-                params.url = 'https://www.baidu.com';
-                break
+                params.title = '教程';
+                params.url = 'https://coding.m.imooc.com/classindex.html?cid=89';
+                break;
             case MORE_MENU.About_Author:
                 RouteName = 'AboutMePage';
                 break;
@@ -40,6 +39,7 @@ export default class AboutPage extends Component {
                 const url = 'mailto://crazycodeboy@gmail.com';
                 Linking.canOpenURL(url)
                     .then(support => {
+                        debugger
                         if (!support) {
                             console.log('Can\'t handle url: ' + url);
                         } else {
@@ -56,7 +56,8 @@ export default class AboutPage extends Component {
     }
 
     getItem(menu) {
-        return ViewUtil.getMenuItem(() => this.onClick(menu), menu, THEME_COLOR);
+        const {theme} = this.params;
+        return ViewUtil.getMenuItem(() => this.onClick(menu), menu, theme.themeColor);
     }
 
     render() {

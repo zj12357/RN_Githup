@@ -9,7 +9,7 @@ import BackPressComponent from "../common/BackPressComponent";
 import FavoriteDao from "../expand/dao/FavoriteDao";
 
 const TRENDING_URL = 'https://github.com/';
-const THEME_COLOR = '#678';
+
 
 
 export default class DetailPage extends Component {
@@ -24,7 +24,7 @@ export default class DetailPage extends Component {
             title: title,
             url: this.url,
             canGoBack: false,
-            isFavorite:projectModel.isFavorite
+            isFavorite: projectModel.isFavorite
         };
         this.backPress = new BackPressComponent({backPress: () => this.onBackPress()});
     }
@@ -49,12 +49,13 @@ export default class DetailPage extends Component {
             NavigationUtil.goBack(this.props.navigation);
         }
     }
-    onFavoriteButtonClick(){
-        const {projectModel,callback}=this.params;
-        const isFavorite=projectModel.isFavorite=!projectModel.isFavorite;
+
+    onFavoriteButtonClick() {
+        const {projectModel, callback} = this.params;
+        const isFavorite = projectModel.isFavorite = !projectModel.isFavorite;
         callback(isFavorite);//更新Item的收藏状态
         this.setState({
-            isFavorite:isFavorite,
+            isFavorite: isFavorite,
         });
         let key = projectModel.item.fullName ? projectModel.item.fullName : projectModel.item.id.toString();
         if (projectModel.isFavorite) {
@@ -63,6 +64,7 @@ export default class DetailPage extends Component {
             this.favoriteDao.removeFavoriteItem(key);
         }
     }
+
     renderRightButton() {
         return (<View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -88,12 +90,13 @@ export default class DetailPage extends Component {
     }
 
     render() {
+        const {theme} = this.params
         const titleLayoutStyle = this.state.title.length > 20 ? {paddingRight: 30} : null;
         let navigationBar = <NavigationBar
             leftButton={ViewUtil.getLeftBackButton(() => this.onBack())}
             titleLayoutStyle={titleLayoutStyle}
             title={this.state.title}
-            style={{backgroundColor: THEME_COLOR}}
+            style={theme.styles.navBar}
             rightButton={this.renderRightButton()}
         />;
 
