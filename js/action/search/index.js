@@ -1,6 +1,7 @@
 import Types from '../types'
 import {_projectModels, doCallBack, handleData} from '../ActionUtil'
 import ArrayUtil from "../../util/ArrayUtil";
+import Utils from "../../util/Utils";
 
 const API_URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
@@ -33,7 +34,7 @@ export function onSearch(inputKey, pageSize, token, favoriteDao, popularKeys, ca
             }
             let items = responseData.items;
             handleData(Types.SEARCH_REFRESH_SUCCESS, dispatch, "", {data: items}, pageSize, favoriteDao, {
-                showBottomButton: !checkKeyIsExist(popularKeys, inputKey),
+                showBottomButton: !Utils.checkKeyIsExist(popularKeys, inputKey),
                 inputKey,
             });
         }).catch(e => {
@@ -72,7 +73,7 @@ export function onLoadMoreSearch(pageIndex, pageSize, dataArray = [], favoriteDa
                     callBack('no more')
                 }
                 dispatch({
-                    type: Types.POPULAR_LOAD_MORE_FAIL,
+                    type: Types.SEARCH_LOAD_MORE_FAIL,
                     error: 'no more',
                     pageIndex: --pageIndex,
                 })
@@ -81,7 +82,7 @@ export function onLoadMoreSearch(pageIndex, pageSize, dataArray = [], favoriteDa
                 let max = pageSize * pageIndex > dataArray.length ? dataArray.length : pageSize * pageIndex;
                 _projectModels(dataArray.slice(0, max), favoriteDao, data => {
                     dispatch({
-                        type: Types.POPULAR_LOAD_MORE_SUCCESS,
+                        type: Types.SEARCH_LOAD_MORE_SUCCESS,
                         pageIndex,
                         projectModels: data,
                     })
@@ -105,18 +106,6 @@ function hasCancel(token, isRemove) {
     if (CANCEL_TOKENS.includes(token)) {
         isRemove && ArrayUtil.remove(CANCEL_TOKENS, token);
         return true;
-    }
-    return false;
-}
-
-/**
- * 检查key是否存在于keys中
- * @param keys
- * @param key
- */
-function checkKeyIsExist(keys, key) {
-    for (let i = 0, l = keys.length; i < l; i++) {
-        if (key.toLowerCase() === keys[i].name.toLowerCase()) return true;
     }
     return false;
 }

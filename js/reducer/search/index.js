@@ -49,7 +49,7 @@ export default function onAction(state = defaultState, action) {
                 hideLoadingMore: false,
                 pageIndex: action.pageIndex,
             };
-        case Types.POPULAR_LOAD_MORE_FAIL://上拉加载更多失败
+        case Types.SEARCH_LOAD_MORE_FAIL://上拉加载更多失败
             return {
                 ...state,//Object.assign @http://www.devio.org/2018/09/09/ES6-ES7-ES8-Feature/
                 hideLoadingMore: true,

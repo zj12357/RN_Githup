@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Button, StyleSheet, Text, View, TextInput, AsyncStorage} from 'react-native';
+import {Button, StyleSheet, Text, View, TextInput} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage'
 import actions from "../action";
 import connect from "react-redux/es/connect/connect";
 
