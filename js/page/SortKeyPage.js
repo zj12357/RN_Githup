@@ -7,12 +7,11 @@ import NavigationBar from '../common/NavigationBar';
 import LanguageDao, {FLAG_LANGUAGE} from "../expand/dao/LanguageDao";
 import BackPressComponent from "../common/BackPressComponent";
 import ViewUtil from "../util/ViewUtil";
-import CheckBox from 'react-native-check-box'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ArrayUtil from "../util/ArrayUtil";
 import SortableListView from 'react-native-sortable-listview-newer'
-
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
+import GlobalStyles from "../res/styles/GlobalStyles";
 
 
 class SortKeyPage extends Component{
@@ -143,25 +142,8 @@ class SortKeyPage extends Component{
         }
     }
 
-    _checkedImage(checked) {
-        return <Ionicons
-            name={checked ? 'ios-checkbox' : 'md-square-outline'}
-            size={20}
-            style={{
-                color: THEME_COLOR,
-            }}/>
-    }
 
-    renderCheckBox(data, index) {
-        return <CheckBox
-            style={{flex: 1, padding: 10}}
-            onClick={() => this.onClick(data, index)}
-            isChecked={data.checked}
-            leftText={data.name}
-            checkedImage={this._checkedImage(true)}
-            unCheckedImage={this._checkedImage(false)}
-        />
-    }
+
 
     render() {
         const {theme}=this.params;
@@ -172,7 +154,10 @@ class SortKeyPage extends Component{
             style={theme.styles.navBar}
             rightButton={ViewUtil.getRightButton('保存', () => this.onSave())}
         />;
-        return <View style={styles.container}>
+        return <SafeAreaViewPlus
+            style={GlobalStyles.root_container}
+            topColor={theme.themeColor}
+        >
             {navigationBar}
             <SortableListView
                 data={this.state.checkedArray}
@@ -183,7 +168,7 @@ class SortKeyPage extends Component{
                 }}
                 renderRow={row => <SortCell data={row} {...this.params}/>}
             />
-        </View>
+        </SafeAreaViewPlus>
     }
 }
 

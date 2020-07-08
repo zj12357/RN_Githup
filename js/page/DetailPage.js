@@ -3,6 +3,7 @@ import {StyleSheet, TouchableOpacity, View, DeviceInfo} from 'react-native';
 import {WebView} from 'react-native-webview';  //Webview已经从react native移除
 import NavigationBar from '../common/NavigationBar'
 import ViewUtil from "../util/ViewUtil";
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import NavigationUtil from "../navigator/NavigationUtil";
 import BackPressComponent from "../common/BackPressComponent";
@@ -101,7 +102,9 @@ export default class DetailPage extends Component {
         />;
 
         return (
-            <View style={styles.container}>
+            <SafeAreaViewPlus
+                topColor={theme.themeColor}
+            >
                 {navigationBar}
                 <WebView
                     ref={webView => this.webView = webView}
@@ -109,7 +112,7 @@ export default class DetailPage extends Component {
                     onNavigationStateChange={e => this.onNavigationStateChange(e)}
                     source={{uri: this.state.url}}
                 />
-            </View>
+            </SafeAreaViewPlus>
         );
     }
 }

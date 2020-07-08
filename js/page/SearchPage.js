@@ -23,6 +23,7 @@ import BackPressComponent from "../common/BackPressComponent";
 import GlobalStyles from '../res/styles/GlobalStyles'
 import ViewUtil from "../util/ViewUtil";
 import Utils from "../util/Utils";
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 
 const favoriteDao = new FavoriteDao(FLAG_STORAGE.flag_popular);
 
@@ -167,7 +168,7 @@ class SearchPage extends Component {
         const {isLoading, projectModels, showBottomButton, hideLoadingMore} = this.props.search;
         const {theme} = this.params;
         let statusBar = null;
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === 'ios' && !DeviceInfo.isIPhoneX_deprecated) {
             statusBar = <View style={[styles.statusBar, {backgroundColor: theme.themeColor}]}/>
         }
         let listView = !isLoading ? <FlatList
@@ -227,13 +228,16 @@ class SearchPage extends Component {
             {listView}
         </View>;
         return (
-            <View style={styles.container}>
+            <SafeAreaViewPlus
+                style={styles.container}
+                topColor={theme.themeColor}
+            >
                 {statusBar}
                 {this.renderNavBar()}
                 {resultView}
                 {bottomButton}
                 <Toast ref={toast => this.toast = toast}/>
-            </View>
+            </SafeAreaViewPlus>
         );
     }
 }

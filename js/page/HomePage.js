@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
 import NavigationUtil from "../navigator/NavigationUtil";
 import DynamicTabNavigator from "../navigator/DynamicTabNavigator";
 import {NavigationActions} from "react-navigation";
@@ -7,12 +6,14 @@ import {connect} from 'react-redux';
 import BackPressComponent from "../common/BackPressComponent";
 import CustomTheme from '../page/CustomTheme';
 import actions from "../action";
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 
 class HomePage extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.backPress = new BackPressComponent({backPress: this.onBackPress()});
     }
+
     componentDidMount() {
         this.backPress.componentDidMount();
     }
@@ -46,20 +47,25 @@ class HomePage extends Component {
     }
 
     render() {
+        const {theme} = this.props;
         NavigationUtil.navigation = this.props.navigation;
-        return <View style={{flex: 1}}>
+        return <SafeAreaViewPlus
+            topColor={theme.themeColor}
+        >
             <DynamicTabNavigator/>
             {this.renderCustomThemeView()}
-        </View>;
+        </SafeAreaViewPlus>
+            ;
     }
 }
 
 const mapStateToProps = state => ({
-    nav:state.nav,
+    nav: state.nav,
     customThemeViewVisible: state.theme.customThemeViewVisible,
+    theme: state.theme.theme,
 });
 const mapDispatchToProps = dispatch => ({
     onShowCustomThemeView: (show) => dispatch(actions.onShowCustomThemeView(show)),
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(HomePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
